@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
+import AddNew from "../Pages/AddNew";
+import Home from "../Pages/Home";
 import NotFound from "../Pages/NotFound";
 import SignIn from "../Pages/SignIn";
 import SignUp from "../Pages/SignUp";
@@ -8,14 +10,24 @@ const Router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-  },
-  {
-    path: "/signIn",
-    element: <SignIn />,
-  },
-  {
-    path: "/signUp",
-    element: <SignUp />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/addNew",
+        element: <AddNew />,
+      },
+      {
+        path: "/signIn",
+        element: <SignIn />,
+      },
+      {
+        path: "/signUp",
+        element: <SignUp />,
+      },
+    ],
   },
   {
     path: "*",

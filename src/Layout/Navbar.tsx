@@ -13,22 +13,18 @@ export default function Navbar() {
   return (
     <div>
       <div className=" flex justify-between items-center h-24 max-w-[1240] mx-auto px-4">
-        <div className="flex justify-between items-center">
+        <Link to="/" className="flex justify-between items-center">
           <div className="avatar">
             <div className="md:w-20 w-8 mr-1 rounded-full">
               <img className="" src={logo} alt="logo" />
             </div>
           </div>
           <h1 className="md:text-5xl font-bold text-[#D01C39]">World</h1>
-        </div>
-        <div className="w-5/12">
-          <input
-            type="text"
-            placeholder="Search any Books"
-            className="input input-bordered w-full bg-gray-50"
-          />
-        </div>
+        </Link>
         <ul className="hidden md:flex uppercase font-bold">
+          <li className="p-2  hover:text-[#D01C39]">
+            <Link to="/">Home</Link>
+          </li>
           <li className="p-2  hover:text-[#D01C39]">
             <Link to="/allBooks">All Books</Link>
           </li>
@@ -61,6 +57,9 @@ export default function Navbar() {
             </div>
           </div>
           <ul className=" uppercase p-4 text-white font-semibold">
+            <li className="p-3  hover:text-[#D01C39]">
+              <Link to="/">Home</Link>
+            </li>
             <li className="p-3  hover:text-[#D01C39]">
               <Link to="/allBooks">All Books</Link>
             </li>
