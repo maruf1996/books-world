@@ -21,9 +21,19 @@ export default function Navbar() {
           </div>
           <h1 className="md:text-5xl font-bold text-[#D01C39]">World</h1>
         </div>
+        <div className="w-5/12">
+          <input
+            type="text"
+            placeholder="Search any Books"
+            className="input input-bordered w-full bg-gray-50"
+          />
+        </div>
         <ul className="hidden md:flex uppercase font-bold">
           <li className="p-2  hover:text-[#D01C39]">
             <Link to="/allBooks">All Books</Link>
+          </li>
+          <li className="p-2  hover:text-[#D01C39]">
+            <Link to="/addNew">Add New</Link>
           </li>
           <li className="p-2 hover:text-[#D01C39]">
             <Link to="/signIn">Sign In</Link>
@@ -38,21 +48,29 @@ export default function Navbar() {
         <div
           className={
             !nav
-              ? "fixed left-0 top-0 w-[60%] border-r border-r-gray-900 h-full bg-[#000300] ease-in-out duration-500"
+              ? "fixed left-0 top-0 w-[100%] border-r border-r-gray-900 h-full bg-[#000300] ease-in-out duration-500"
               : "fixed left-[-100%]"
           }
         >
-          <h1 className="text-3xl w-full font-bold text-[#00df91] m-4">
-            Books World
-          </h1>
-          <ul className="pt-12 uppercase p-4">
-            <li className="p-4 border-b border-gray-600">
+          <div className="flex justify-between items-center">
+            <h1 className="text-1xl uppercase underline  underline-offset-8 w-full font-bold text-white m-4">
+              Categories
+            </h1>
+            <div onClick={handleNav} className="text-white p-4">
+              {!nav && <AiOutlineClose size={25} />}
+            </div>
+          </div>
+          <ul className=" uppercase p-4 text-white font-semibold">
+            <li className="p-3  hover:text-[#D01C39]">
               <Link to="/allBooks">All Books</Link>
             </li>
-            <li className="p-4 border-b border-gray-600">
+            <li className="p-3  hover:text-[#D01C39]">
+              <Link to="/addNew">Add New</Link>
+            </li>
+            <li className="p-3 hover:text-[#D01C39]">
               <Link to="/signIn">Sign In</Link>
             </li>
-            <li className="p-4 border-b border-gray-600">
+            <li className="p-3 hover:text-[#D01C39]">
               <Link to="signUp">Sign Up</Link>
             </li>
           </ul>
