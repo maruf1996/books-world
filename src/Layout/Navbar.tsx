@@ -39,7 +39,7 @@ export default function Navbar() {
             <Link to="/signIn">Sign In</Link>
           </li>
           <li className="p-2 hover:text-[#D01C39]">
-            <Link to="signUp">Sign Up</Link>
+            <Link to="/signUp">Sign Up</Link>
           </li>
         </ul>
         <div onClick={handleNav} className="block md:hidden">
@@ -71,7 +71,7 @@ export default function Navbar() {
               <Link to="/signIn">Sign In</Link>
             </li>
             <li className="p-3 hover:text-[#D01C39]">
-              <Link to="signUp">Sign Up</Link>
+              <Link to="/signUp">Sign Up</Link>
             </li>
           </ul>
         </div>
