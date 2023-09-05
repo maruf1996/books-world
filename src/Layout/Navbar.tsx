@@ -21,7 +21,7 @@ export default function Navbar() {
           </div>
           <h1 className="md:text-5xl font-bold text-[#D01C39]">World</h1>
         </Link>
-        <ul className="hidden md:flex uppercase font-bold">
+        <ul className="hidden md:flex uppercase font-bold text-red-800">
           <li className="p-2  hover:text-[#D01C39]">
             <Link to="/">Home</Link>
           </li>
