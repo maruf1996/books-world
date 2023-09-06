@@ -1,16 +1,9 @@
-import { useEffect, useState } from "react";
+import { useGetBooksQuery } from "../Redux/features/books/bookApi";
 import { IBooks } from "../Types/globalType";
 import Book from "./Book";
 
 const Books = () => {
-  const [books, setBooks] = useState<IBooks[]>([]);
-  console.log(books);
-
-  useEffect(() => {
-    fetch("../../public/books.json")
-      .then((res) => res.json())
-      .then((data) => setBooks(data));
-  }, []);
+  const { data } = useGetBooksQuery(undefined);
 
   return (
     <div className="bg-gray-100">
@@ -55,8 +48,8 @@ const Books = () => {
           </svg>
         </div>
         <div className="relative grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-          {books.slice(0, 10).map((book) => (
-            <Book book={book}></Book>
+          {data?.data?.slice(0, 10).map((book: IBooks, index: number) => (
+            <Book book={book} key={index}></Book>
           ))}
         </div>
       </div>

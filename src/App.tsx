@@ -1,5 +1,6 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 import { auth } from "./Firebase/firebase";
 import Layout from "./Layout/Layout";
 import { setLoading, setUser } from "./Redux/features/user/userSlice";
@@ -21,6 +22,7 @@ export default function App() {
   return (
     <div>
       <Layout></Layout>
+      <Toaster />
     </div>
   );
 }

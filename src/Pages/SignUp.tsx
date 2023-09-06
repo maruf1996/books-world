@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { usePostUserMutation } from "../Redux/features/user/userApi";
 import { createUser } from "../Redux/features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../Redux/hook";
 
@@ -8,9 +7,6 @@ const SignUp = () => {
   const dispatch = useAppDispatch();
   const { user, isLoading } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
-  const [postUser, { isError, isSuccess }] = usePostUserMutation();
-  console.log(isSuccess);
-  console.log(isError);
 
   const handleCreateUser = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -18,10 +14,6 @@ const SignUp = () => {
     const email = event.currentTarget.email.value;
     const password = event.currentTarget.password.value;
     dispatch(createUser({ email: email, password: password }));
-    const options = { data: { email: email } };
-    if (!user.email) {
-      postUser(options);
-    }
   };
 
   useEffect(() => {

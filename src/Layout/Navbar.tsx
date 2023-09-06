@@ -53,7 +53,7 @@ export default function Navbar() {
               </li>
             </>
           )}
-          {!user.email && (
+          {user.email && (
             <li onClick={handleLogout} className="p-3 hover:text-[#D01C39]">
               Logout
             </li>

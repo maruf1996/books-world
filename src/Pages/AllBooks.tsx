@@ -1,16 +1,11 @@
-import { useEffect, useState } from "react";
 import BookTable from "../Component/BookTable";
+import { useGetBooksQuery } from "../Redux/features/books/bookApi";
 import { IBooks } from "../Types/globalType";
 
 const AllBooks = () => {
-  const [books, setBooks] = useState<IBooks[]>([]);
-  console.log(books);
+  const { data } = useGetBooksQuery(undefined);
+  console.log(data);
 
-  useEffect(() => {
-    fetch("../../public/books.json")
-      .then((res) => res.json())
-      .then((data) => setBooks(data));
-  }, []);
   return (
     <div className="">
       <div className="mt-10 w-full">
@@ -71,8 +66,12 @@ const AllBooks = () => {
                   <th>Action</th>
                 </tr>
               </thead>
-              {books.map((book, index) => (
-                <BookTable book={book} index={index + 1}></BookTable>
+              {data?.data?.map((book: IBooks, index: number) => (
+                <BookTable
+                  book={book}
+                  key={index}
+                  index={index + 1}
+                ></BookTable>
               ))}
             </table>
           </div>
