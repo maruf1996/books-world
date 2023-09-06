@@ -1,10 +1,22 @@
+import { signOut } from "firebase/auth";
 import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { auth } from "../Firebase/firebase";
+import { setUser } from "../Redux/features/user/userSlice";
+import { useAppDispatch, useAppSelector } from "../Redux/hook";
 import logo from "../assets/logo.png";
 
 export default function Navbar() {
   const [nav, setNav] = useState(true);
+  const { user } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  const handleLogout = () => {
+    signOut(auth).then(() => {
+      // Sign-out successful.
+      dispatch(setUser(null));
+    });
+  };
 
   const handleNav = () => {
     setNav(!nav);
@@ -31,12 +43,21 @@ export default function Navbar() {
           <li className="p-3  hover:text-[#D01C39]">
             <Link to="/addNew">Add New</Link>
           </li>
-          <li className="p-3 hover:text-[#D01C39]">
-            <Link to="/signIn">Sign In</Link>
-          </li>
-          <li className="p-3 hover:text-[#D01C39]">
-            <Link to="/signUp">Sign Up</Link>
-          </li>
+          {!user.email && (
+            <>
+              <li className="p-3 hover:text-[#D01C39]">
+                <Link to="/signIn">Sign In</Link>
+              </li>
+              <li className="p-3 hover:text-[#D01C39]">
+                <Link to="/signUp">Sign Up</Link>
+              </li>
+            </>
+          )}
+          {!user.email && (
+            <li onClick={handleLogout} className="p-3 hover:text-[#D01C39]">
+              Logout
+            </li>
+          )}
         </ul>
         <div onClick={handleNav} className="block md:hidden">
           {!nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
@@ -66,12 +87,21 @@ export default function Navbar() {
             <li className="p-3  hover:text-[#D01C39]">
               <Link to="/addNew">Add New</Link>
             </li>
-            <li className="p-3 hover:text-[#D01C39]">
-              <Link to="/signIn">Sign In</Link>
-            </li>
-            <li className="p-3 hover:text-[#D01C39]">
-              <Link to="/signUp">Sign Up</Link>
-            </li>
+            {!user.email && (
+              <>
+                <li className="p-3 hover:text-[#D01C39]">
+                  <Link to="/signIn">Sign In</Link>
+                </li>
+                <li className="p-3 hover:text-[#D01C39]">
+                  <Link to="/signUp">Sign Up</Link>
+                </li>
+              </>
+            )}
+            {!user.email && (
+              <li onClick={handleLogout} className="p-3 hover:text-[#D01C39]">
+                Logout
+              </li>
+            )}
           </ul>
         </div>
       </div>
