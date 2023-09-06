@@ -1,5 +1,6 @@
 export interface IBooks {
-  userid?: number;
+  _id?: number;
+  userEmail: string;
   title: string;
   author: string;
   genre: string;

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { IBooks } from "../Types/globalType";
 
 interface IProps {
@@ -6,7 +7,7 @@ interface IProps {
 }
 
 const BookTable = ({ book, index }: IProps) => {
-  const { title, author, genre, publicationDate } = book;
+  const { title, author, genre, publicationDate, _id } = book;
   return (
     <tbody>
       {/* row 1 */}
@@ -17,9 +18,11 @@ const BookTable = ({ book, index }: IProps) => {
         <td>{genre}</td>
         <td>{publicationDate}</td>
         <td>
-          <button className="btn btn-sm bg-red-800 hover:bg-red-700 text-white">
-            Details
-          </button>
+          <Link to={`/book-details/${_id}`}>
+            <button className="btn btn-sm bg-red-800 hover:bg-red-700 text-white">
+              Details
+            </button>
+          </Link>
         </td>
       </tr>
     </tbody>

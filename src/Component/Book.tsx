@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { IBooks } from "../Types/globalType";
 
 interface IProps {
@@ -5,9 +6,9 @@ interface IProps {
 }
 
 const Book = ({ book }: IProps) => {
-  const { title, author, genre, publicationDate } = book;
+  const { title, author, genre, publicationDate, _id } = book;
   return (
-    <div>
+    <Link to={`/book-details/${_id}`}>
       <div className="flex flex-col justify-between overflow-hidden text-left transition-shadow duration-200 bg-white rounded shadow-xl group hover:shadow-2xl">
         <div className="p-5">
           <div className="flex items-center justify-center w-10 h-10 mb-4 rounded-full bg-indigo-50">
@@ -47,7 +48,7 @@ const Book = ({ book }: IProps) => {
         </div>
         <div className="w-full h-1 ml-auto duration-300 origin-left transform scale-x-0 bg-deep-purple-accent-400 group-hover:scale-x-100" />
       </div>
-    </div>
+    </Link>
   );
 };
 
