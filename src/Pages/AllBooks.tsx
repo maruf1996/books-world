@@ -4,7 +4,7 @@ import { useGetBooksQuery } from "../Redux/features/books/bookApi";
 import { IBooks } from "../Types/globalType";
 
 const AllBooks = () => {
-  const { data } = useGetBooksQuery(undefined);
+  const { data, isLoading } = useGetBooksQuery(undefined);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
@@ -39,6 +39,15 @@ const AllBooks = () => {
   ) => {
     setSelectedYear(event.target.value);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full border-t-4 border-blue-500 border-opacity-25 h-16 w-16"></div>
+        <p className="ml-2 text-blue-500">Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="">

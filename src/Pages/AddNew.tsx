@@ -11,7 +11,7 @@ const AddNew = () => {
     publishDate: "",
   });
   const { user } = useAppSelector((state) => state.user);
-  const [book, { isSuccess }] = usePostBookMutation();
+  const [book, { isSuccess, isLoading }] = usePostBookMutation();
   const handleAddBook = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -34,6 +34,15 @@ const AddNew = () => {
       });
     }
   }, [isSuccess]);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full border-t-4 border-blue-500 border-opacity-25 h-16 w-16"></div>
+        <p className="ml-2 text-blue-500">Loading...</p>
+      </div>
+    );
+  }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;

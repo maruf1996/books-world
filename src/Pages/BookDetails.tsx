@@ -9,7 +9,7 @@ import { useAppSelector } from "../Redux/hook";
 
 const BookDetails = () => {
   const { id } = useParams();
-  const { data: book } = useSingleBookQuery(id);
+  const { data: book, isLoading } = useSingleBookQuery(id);
   const { user } = useAppSelector((state) => state.user);
   const [deleteBook] = useDeleteBookMutation();
   const navigate = useNavigate();
@@ -37,6 +37,15 @@ const BookDetails = () => {
 
   if (!id) {
     navigate("/");
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full border-t-4 border-blue-500 border-opacity-25 h-16 w-16"></div>
+        <p className="ml-2 text-blue-500">Loading...</p>
+      </div>
+    );
   }
 
   return (

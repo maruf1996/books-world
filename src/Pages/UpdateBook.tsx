@@ -9,7 +9,7 @@ import { useAppSelector } from "../Redux/hook";
 
 const UpdateBook = () => {
   const { id } = useParams();
-  const { data: book } = useSingleBookQuery(id);
+  const { data: book, isLoading } = useSingleBookQuery(id);
   const [updateBook] = useUpdateBookMutation();
 
   const [formData, setFormData] = useState({
@@ -42,6 +42,15 @@ const UpdateBook = () => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full border-t-4 border-blue-500 border-opacity-25 h-16 w-16"></div>
+        <p className="ml-2 text-blue-500">Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full md:my-12">

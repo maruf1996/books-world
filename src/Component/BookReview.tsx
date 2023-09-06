@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const BookReview = ({ id }: IProps) => {
-  const { data } = useGetReviewQuery(id, {
+  const { data, isLoading } = useGetReviewQuery(id, {
     refetchOnMountOrArgChange: true,
     pollingInterval: 3000,
   });
@@ -31,6 +31,15 @@ const BookReview = ({ id }: IProps) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full border-t-4 border-blue-500 border-opacity-25 h-16 w-16"></div>
+        <p className="ml-2 text-blue-500">Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="my-8">

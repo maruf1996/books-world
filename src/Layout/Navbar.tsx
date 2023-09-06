@@ -40,9 +40,6 @@ export default function Navbar() {
           <li className="p-3  hover:text-[#D01C39]">
             <Link to="/allBooks">All Books</Link>
           </li>
-          <li className="p-3  hover:text-[#D01C39]">
-            <Link to="/addNew">Add New</Link>
-          </li>
           {!user.email && (
             <>
               <li className="p-3 hover:text-[#D01C39]">
@@ -54,9 +51,14 @@ export default function Navbar() {
             </>
           )}
           {user.email && (
-            <li onClick={handleLogout} className="p-3 hover:text-[#D01C39]">
-              Logout
-            </li>
+            <>
+              <li className="p-3  hover:text-[#D01C39]">
+                <Link to="/addNew">Add New</Link>
+              </li>
+              <li onClick={handleLogout} className="p-3 hover:text-[#D01C39]">
+                Logout
+              </li>
+            </>
           )}
         </ul>
         <div onClick={handleNav} className="block md:hidden">

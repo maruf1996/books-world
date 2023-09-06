@@ -1,12 +1,15 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { loginUser } from "../Redux/features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../Redux/hook";
 
 const SignIn = () => {
   const dispatch = useAppDispatch();
   const { user, isLoading } = useAppSelector((state) => state.user);
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
 
   const handleLoginUser = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -17,7 +20,7 @@ const SignIn = () => {
   };
   useEffect(() => {
     if (user.email && !isLoading) {
-      navigate("/");
+      navigate(from, { replace: true });
     }
   }, [user.email, isLoading]);
 
