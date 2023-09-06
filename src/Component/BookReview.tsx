@@ -14,15 +14,9 @@ const BookReview = ({ id }: IProps) => {
     refetchOnMountOrArgChange: true,
     pollingInterval: 3000,
   });
-  console.log(data);
 
   const [inputValue, setInputValue] = useState<string>("");
-  const [postReview, { isError, isLoading, isSuccess }] =
-    usePostReviewMutation();
-
-  console.log(isLoading);
-  console.log(isSuccess);
-  console.log(isError);
+  const [postReview] = usePostReviewMutation();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -58,19 +52,21 @@ const BookReview = ({ id }: IProps) => {
       <div className="overflow-x-auto my-8">
         <table className="table">
           <thead>
-            {data?.review?.map((r: []) => (
-              <div className="flex items-center text-black">
-                <tr>
-                  <th>
-                    <FaUserAlt size={22}></FaUserAlt>
-                  </th>
-                </tr>
-                <tr>
-                  <th className="font-bold text-1xl">{r}</th>
-                </tr>
-              </div>
-            ))}
+            <tr>
+              <th>User</th>
+              <th>Review</th>
+            </tr>
           </thead>
+          <tbody>
+            {data?.review?.map((r: string, index: number) => (
+              <tr key={index}>
+                <td>
+                  <FaUserAlt size={22}></FaUserAlt>
+                </td>
+                <td className="font-bold text-1xl">{r}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </div>

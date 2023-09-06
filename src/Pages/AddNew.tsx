@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import { usePostBookMutation } from "../Redux/features/books/bookApi";
 import { useAppSelector } from "../Redux/hook";
 
@@ -13,28 +12,35 @@ const AddNew = () => {
   });
   const { user } = useAppSelector((state) => state.user);
   const [book, { isSuccess }] = usePostBookMutation();
-  const navigate = useNavigate();
-  console.log(isSuccess);
-
   const handleAddBook = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const { title, author, genre, publishDate } = formData;
     const options = {
-      data: { userEmail: user.email, title, author, genre, publishDate },
+      data: { userEmail: user?.email, title, author, genre, publishDate },
     };
     book(options);
   };
+
   useEffect(() => {
     if (isSuccess === true) {
       toast.success("Book Added Successfully!");
-      navigate("/allBooks");
+      // Reset the input fields
+      setFormData({
+        title: "",
+        author: "",
+        genre: "",
+        publishDate: "",
+      });
     }
   }, [isSuccess]);
 
-  const handleInputBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
   return (
@@ -53,9 +59,10 @@ const AddNew = () => {
           <input
             name="title"
             type="text"
-            onBlur={handleInputBlur}
+            onChange={handleInputChange}
             placeholder="Enter Title"
             className="input input-bordered w-full"
+            value={formData.title}
           />
         </div>
         <div className="form-control w-full my-3">
@@ -65,9 +72,10 @@ const AddNew = () => {
           <input
             name="author"
             type="text"
-            onBlur={handleInputBlur}
+            onChange={handleInputChange}
             placeholder="Enter Author"
             className="input input-bordered w-full"
+            value={formData.author}
           />
         </div>
         <div className="form-control w-full my-3">
@@ -77,9 +85,10 @@ const AddNew = () => {
           <input
             name="genre"
             type="text"
-            onBlur={handleInputBlur}
+            onChange={handleInputChange}
             placeholder="Enter Genre"
             className="input input-bordered w-full"
+            value={formData.genre}
           />
         </div>
         <div className="form-control w-full my-3">
@@ -89,9 +98,10 @@ const AddNew = () => {
           <input
             name="publishDate"
             type="date"
-            onBlur={handleInputBlur}
+            onChange={handleInputChange}
             placeholder="Enter Publish Date"
             className="input input-bordered w-full"
+            value={formData.publishDate}
           />
         </div>
         <div className="form-control w-full mt-6">

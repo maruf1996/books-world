@@ -1,37 +1,42 @@
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import { useParams } from "react-router-dom";
-import { useSingleBookQuery } from "../Redux/features/books/bookApi";
+import {
+  useSingleBookQuery,
+  useUpdateBookMutation,
+} from "../Redux/features/books/bookApi";
 import { useAppSelector } from "../Redux/hook";
 
 const UpdateBook = () => {
   const { id } = useParams();
   const { data: book } = useSingleBookQuery(id);
-  console.log(id);
+  const [updateBook] = useUpdateBookMutation();
 
   const [formData, setFormData] = useState({
-    title: "",
-    author: "",
-    genre: "",
-    publishDate: "",
+    title: book?.title || "",
+    author: book?.author || "",
+    genre: book?.genre || "",
+    publishDate: book?.publishDate || "",
   });
+
   const { user } = useAppSelector((state) => state.user);
-  //   const navigate = useNavigate();
 
   const handleUpdateBook = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     const { title, author, genre, publishDate } = formData;
     const options = {
-      data: { userEmail: user.email, title, author, genre, publishDate },
+      id,
+      data: { userEmail: user?.email, title, author, genre, publishDate },
     };
-    console.log(options);
+    updateBook(options)
+      .unwrap() // Unwrap the mutation result
+      .then(() => {
+        toast.success("Book Updated Successfully!");
+      })
+      .catch((error) => {
+        console.error("Error updating book:", error);
+      });
   };
-  //   useEffect(() => {
-  //     if (isSuccess === true) {
-  //       toast.success("Book Added Successfully!");
-  //       navigate("/allBooks");
-  //     }
-  //   }, [isSuccess]);
 
   const handleInputBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
