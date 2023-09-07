@@ -4,7 +4,9 @@ const Footer = () => {
       <div className="container flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
         <div className="md:w-1/3">
           <div className="">
-            <h1 className="md:text-4xl font-bold text-red-800">Books World</h1>
+            <h1 className="md:text-4xl text-2xl font-bold text-red-800">
+              Books World
+            </h1>
           </div>
         </div>
         <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
