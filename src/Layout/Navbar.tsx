@@ -87,7 +87,10 @@ export default function Navbar() {
               {!nav && <AiOutlineClose size={25} />}
             </div>
           </div>
-          <ul className=" uppercase p-4 text-white font-semibold">
+          <ul
+            onClick={() => setNav(true)}
+            className=" uppercase p-4 text-white font-semibold"
+          >
             <li className="p-3  hover:text-[#D01C39]">
               <Link to="/">Home</Link>
             </li>

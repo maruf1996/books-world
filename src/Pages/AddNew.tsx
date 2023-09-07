@@ -53,7 +53,7 @@ const AddNew = () => {
   };
 
   return (
-    <div className="w-full md:my-12">
+    <div className="w-full md:my-12 my-8">
       <form
         onSubmit={handleAddBook}
         className="w-10/12 md:w-4/12 mx-auto border p-3 md:p-8"
