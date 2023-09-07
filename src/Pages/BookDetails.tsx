@@ -3,9 +3,14 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import BookReview from "../Component/BookReview";
 import {
   useDeleteBookMutation,
+  usePostReadingListMutation,
+  usePostWishlistMutation,
   useSingleBookQuery,
+  useSingleReadimgListQuery,
+  useSingleWishlistQuery,
 } from "../Redux/features/books/bookApi";
 import { useAppSelector } from "../Redux/hook";
+import { IBooks } from "../Types/globalType";
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -13,6 +18,41 @@ const BookDetails = () => {
   const { user } = useAppSelector((state) => state.user);
   const [deleteBook] = useDeleteBookMutation();
   const navigate = useNavigate();
+
+  const [wishlistData] = usePostWishlistMutation();
+  const [readingListData] = usePostReadingListMutation();
+  const { data: wishlist } = useSingleWishlistQuery(id, {
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 2000,
+  });
+  const { data: readingList } = useSingleReadimgListQuery(id, {
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 3000,
+  });
+
+  const handleAddWishList = (book: IBooks) => {
+    const title = book?.title;
+    const id = book?._id;
+    const options = {
+      data: { userEmail: user?.email, bookId: id, title, success: true },
+    };
+    wishlistData(options);
+  };
+
+  const handleAddReadingList = (book: IBooks) => {
+    const title = book?.title;
+    const id = book?._id;
+    const options = {
+      data: {
+        userEmail: user?.email,
+        bookId: id,
+        title,
+        success: true,
+        readingComplete: false,
+      },
+    };
+    readingListData(options);
+  };
 
   // State to handle confirmation modal
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -30,7 +70,6 @@ const BookDetails = () => {
   const openDeleteModal = () => {
     setIsDeleteModalOpen(true);
   };
-
   const closeDeleteModal = () => {
     setIsDeleteModalOpen(false);
   };
@@ -60,10 +99,24 @@ const BookDetails = () => {
           <p>Genre : {book?.genre}</p>
           <p>Publication Date : {book?.publishDate}</p>
           <div className="card-actions justify-start mt-4">
-            <button className="btn font-mono bg-red-900 font-normal hover:bg-red-700 btn-sm text-white">
+            <button
+              onClick={() => handleAddWishList(book)}
+              className={
+                wishlist?.success === true
+                  ? "btn font-mono bg-red-900 font-normal hover:bg-red-700 btn-sm text-white btn-disabled"
+                  : "btn font-mono bg-red-900 font-normal hover:bg-red-700 btn-sm text-white"
+              }
+            >
               WishList
             </button>
-            <button className="btn font-mono bg-red-900 font-normal hover:bg-red-700 btn-sm text-white">
+            <button
+              onClick={() => handleAddReadingList(book)}
+              className={
+                readingList?.success === true
+                  ? "btn font-mono bg-red-900 font-normal hover:bg-red-700 btn-sm text-white btn-disabled"
+                  : "btn font-mono bg-red-900 font-normal hover:bg-red-700 btn-sm text-white"
+              }
+            >
               Plan to read
             </button>
           </div>

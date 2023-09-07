@@ -5,10 +5,12 @@ import AllBooks from "../Pages/AllBooks";
 import BookDetails from "../Pages/BookDetails";
 import Home from "../Pages/Home";
 import NotFound from "../Pages/NotFound";
+import ReadingList from "../Pages/ReadingList";
 import SignIn from "../Pages/SignIn";
 import SignUp from "../Pages/SignUp";
 import UpdateBook from "../Pages/UpdateBook";
-import PrivateRoute from "./privateRoute";
+import WishList from "../Pages/WishList";
+import PrivateRoute from "./PrivateRoute";
 
 const Router = createBrowserRouter([
   {
@@ -33,7 +35,11 @@ const Router = createBrowserRouter([
       },
       {
         path: "/addNew",
-        element: <AddNew />,
+        element: (
+          <PrivateRoute>
+            <AddNew />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/update-book/:id",
@@ -48,6 +54,22 @@ const Router = createBrowserRouter([
         element: <SignUp />,
       },
     ],
+  },
+  {
+    path: "/wishlist",
+    element: (
+      <PrivateRoute>
+        <WishList />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/readingList",
+    element: (
+      <PrivateRoute>
+        <ReadingList />
+      </PrivateRoute>
+    ),
   },
   {
     path: "*",

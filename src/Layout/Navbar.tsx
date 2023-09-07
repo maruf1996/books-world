@@ -31,7 +31,9 @@ export default function Navbar() {
               <img className="" src={logo} alt="logo" />
             </div>
           </div>
-          <h1 className="md:text-5xl font-bold text-[#D01C39]">World</h1>
+          <h1 className="md:text-5xl text-1xl font-bold text-[#D01C39]">
+            World
+          </h1>
         </Link>
         <ul className="hidden md:flex uppercase font-bold text-red-800">
           <li className="p-3  hover:text-[#D01C39]">
@@ -54,6 +56,12 @@ export default function Navbar() {
             <>
               <li className="p-3  hover:text-[#D01C39]">
                 <Link to="/addNew">Add New</Link>
+              </li>
+              <li className="p-3  hover:text-[#D01C39]">
+                <Link to="/wishlist">WishList</Link>
+              </li>
+              <li className="p-3  hover:text-[#D01C39]">
+                <Link to="/readingList">Reading List</Link>
               </li>
               <li onClick={handleLogout} className="p-3 hover:text-[#D01C39]">
                 Logout
@@ -86,9 +94,6 @@ export default function Navbar() {
             <li className="p-3  hover:text-[#D01C39]">
               <Link to="/allBooks">All Books</Link>
             </li>
-            <li className="p-3  hover:text-[#D01C39]">
-              <Link to="/addNew">Add New</Link>
-            </li>
             {!user.email && (
               <>
                 <li className="p-3 hover:text-[#D01C39]">
@@ -99,10 +104,21 @@ export default function Navbar() {
                 </li>
               </>
             )}
-            {!user.email && (
-              <li onClick={handleLogout} className="p-3 hover:text-[#D01C39]">
-                Logout
-              </li>
+            {user.email && (
+              <>
+                <li className="p-3  hover:text-[#D01C39]">
+                  <Link to="/addNew">Add New</Link>
+                </li>
+                <li className="p-3  hover:text-[#D01C39]">
+                  <Link to="/wishlist">WishList</Link>
+                </li>
+                <li className="p-3  hover:text-[#D01C39]">
+                  <Link to="/readingList">Reading List</Link>
+                </li>
+                <li onClick={handleLogout} className="p-3 hover:text-[#D01C39]">
+                  Logout
+                </li>
+              </>
             )}
           </ul>
         </div>

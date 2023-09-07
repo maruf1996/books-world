@@ -61,10 +61,7 @@ const BookReview = ({ id }: IProps) => {
       <div className="overflow-x-auto my-8">
         <table className="table">
           <thead>
-            <tr>
-              <th>User</th>
-              <th>Review</th>
-            </tr>
+            <tr></tr>
           </thead>
           <tbody>
             {data?.review?.map((r: string, index: number) => (
